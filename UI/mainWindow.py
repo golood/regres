@@ -77,15 +77,18 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label.setText(_translate("MainWindow", "Loaded File..."))
         self.pushButton_2.setText(_translate("MainWindow", "Выбрать зависимую переменную"))
         self.pushButton_3.setText(_translate("MainWindow", "Разделить матрицу"))
-        self.pushButton_4.setText(_translate("MainWindow", "Выбрать независимые переменные"))
+        self.pushButton_4.setText(_translate("MainWindow", "Выбрать рабочую матрицу"))
 
     def showInputDialog1(self):
 
         text, ok = QtWidgets.QInputDialog.getText(self,
-                    'Диалог выбора независимых переменных',
-                    'Введите через пробел столбцы с независимыми переменными')
+                    'Диалог выбора рабочей матрицы',
+                    'Введите через пробел номера столбцов')
         if ok:
             self.number = list(map(int, text.split()))
+            self.number = list(map(lambda x: x - 1, self.number))
+            self._initWorkMatrix()
+            self._set_data_in_table(self.workMatrix)
 
     def showInputDialog(self):
 
@@ -96,13 +99,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.zav_var = number
         if ok:
             if number >= 0 & number < len(self.data[0]):
-                self._initHeadersLabels(number)
+                self._initHeadersLabels(number - 1)
 
     def _initHeadersLabels(self, index):
         headersLabels = []
 
         num = 0
-        for i in range(len(self.data[0])):
+        for i in range(len(self.workMatrix[0])):
             if i != index:
                 headersLabels.append('x' + str(num))
                 num += 1
@@ -122,9 +125,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 for line in f:
                     self.data.append(list(map(float, line.split())))
 
+        self.workMatrix = self.data
         self._set_data_in_table(self.data)
 
     def _set_data_in_table(self, data):
+        self.tableWidget.clear()
+
         self.tableWidget.setRowCount(len(data))
         self.tableWidget.setColumnCount(len(data[0]))
 
@@ -146,7 +152,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             new_line = []
             index = 0
             for item in line:
-                if index not in self.number:
+                if index in self.number:
                     new_line.append(item)
                 index += 1
             self.workMatrix.append(new_line)
