@@ -10,6 +10,73 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UI.window1 import Ui_Dialog
 
+class Ui_Dialog(QtWidgets.QDialog):
+
+    def __init__(self, parent=None):
+        super(Ui_Dialog, self).__init__(parent)
+
+        self.main = parent
+        self.setObjectName("Dialog")
+        self.resize(639, 344)
+        self.buttonBox = QtWidgets.QDialogButtonBox(self)
+        self.buttonBox.setGeometry(
+            QtCore.QRect(280, 300, 341, 32))
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(
+            QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
+        self.pushButton = QtWidgets.QPushButton(self)
+        self.pushButton.setGeometry(
+            QtCore.QRect(20, 20, 251, 25))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self)
+        self.pushButton_2.setGeometry(
+            QtCore.QRect(288, 80, 71, 25))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self)
+        self.pushButton_3.setGeometry(
+            QtCore.QRect(290, 120, 71, 25))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.listWidget = QtWidgets.QListWidget(self)
+        self.listWidget.setGeometry(
+            QtCore.QRect(20, 80, 256, 192))
+        self.listWidget.setObjectName("listWidget")
+
+        self.listWidget_2 = QtWidgets.QListWidget(self)
+        self.listWidget_2.setGeometry(
+            QtCore.QRect(370, 80, 256, 192))
+        self.listWidget_2.setObjectName("listWidget_2")
+
+        self.retranslateUi(self)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+        QtCore.QMetaObject.connectSlotsByName(self)
+
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.pushButton.setText(_translate("Dialog", "Случайным образом"))
+        self.pushButton_2.setText(_translate("Dialog", ">"))
+        self.pushButton_3.setText(_translate("Dialog", "<"))
+
+        __sortingEnabled = self.listWidget.isSortingEnabled()
+        self.listWidget.setSortingEnabled(False)
+        self.listWidget.setSortingEnabled(__sortingEnabled)
+
+        __sortingEnabled = self.listWidget_2.isSortingEnabled()
+        self.listWidget_2.setSortingEnabled(False)
+        self.listWidget_2.setSortingEnabled(__sortingEnabled)
+
+    def randomDataAction(self):
+        pass
+
+    def rightColumnAction(self, item):
+        pass
+
+    def leftColumnAction(self, item):
+        pass
+
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
 
@@ -41,6 +108,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(10, 300, 261, 25))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(self.openDialog)
 
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setGeometry(QtCore.QRect(280, 260, 261, 25))
@@ -68,7 +136,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def openDialog(self):
-        self.dialog.show()
+        dialog = Ui_Dialog(self)
+        dialog.exec_()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -127,6 +196,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.workMatrix = self.data
         self._set_data_in_table(self.data)
+
+    def initTableH1(self):
+        pass
+
+    def initTableH2(self):
+        pass
 
     def _set_data_in_table(self, data):
         self.tableWidget.clear()
