@@ -1,19 +1,160 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.2
-#
-# WARNING! All changes made in this file will be lost!
+from PyQt5 import QtCore, QtWidgets
+from myMatlib import regr
 
-
-from PyQt5 import QtCore, QtGui, QtWidgets
-from UI.window1 import Ui_Dialog
-
-class Ui_Dialog(QtWidgets.QDialog):
+class Ui_Dialog_answer(QtWidgets.QDialog):
 
     def __init__(self, parent=None):
-        super(Ui_Dialog, self).__init__(parent)
+        super(Ui_Dialog_answer, self).__init__(parent)
+
+        self.main = parent
+        self.setObjectName("Dialog")
+        self.resize(640, 603)
+        self.buttonBox = QtWidgets.QDialogButtonBox(self)
+        self.buttonBox.setGeometry(QtCore.QRect(10, 560, 621, 32))
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
+
+        self.tableWidget = QtWidgets.QTableWidget(self)
+        self.tableWidget.setGeometry(QtCore.QRect(10, 40, 601, 141))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(4)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(3, item)
+
+        self.tableWidget_2 = QtWidgets.QTableWidget(self)
+        self.tableWidget_2.setGeometry(QtCore.QRect(10, 220, 601, 141))
+        self.tableWidget_2.setObjectName("tableWidget_2")
+        self.tableWidget_2.setColumnCount(0)
+        self.tableWidget_2.setRowCount(4)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_2.setVerticalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_2.setVerticalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_2.setVerticalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_2.setVerticalHeaderItem(3, item)
+
+        self.tableWidget_3 = QtWidgets.QTableWidget(self)
+        self.tableWidget_3.setGeometry(QtCore.QRect(10, 400, 150, 141))
+        self.tableWidget_3.setObjectName("tableWidget_3")
+        self.tableWidget_3.setColumnCount(0)
+        self.tableWidget_3.setRowCount(4)
+
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setVerticalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setVerticalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setVerticalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setVerticalHeaderItem(3, item)
+
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(10, 10, 261, 17))
+        self.label.setObjectName("label")
+
+        self.label_2 = QtWidgets.QLabel(self)
+        self.label_2.setGeometry(QtCore.QRect(10, 190, 261, 17))
+        self.label_2.setObjectName("label_2")
+
+        self.label_3 = QtWidgets.QLabel(self)
+        self.label_3.setGeometry(QtCore.QRect(10, 370, 401, 17))
+        self.label_3.setObjectName("label_3")
+
+        self.retranslateUi(self)
+        self.buttonBox.accepted.connect(self.accept)
+        QtCore.QMetaObject.connectSlotsByName(self)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Решение"))
+
+        item = self.tableWidget.verticalHeaderItem(0)
+        item.setText(_translate("Dialog", "МНК"))
+        item = self.tableWidget.verticalHeaderItem(1)
+        item.setText(_translate("Dialog", "МНМ"))
+        item = self.tableWidget.verticalHeaderItem(2)
+        item.setText(_translate("Dialog", "МАО"))
+        item = self.tableWidget.verticalHeaderItem(3)
+        item.setText(_translate("Dialog", "МСО"))
+
+        item = self.tableWidget_2.verticalHeaderItem(0)
+        item.setText(_translate("Dialog", "МНК"))
+        item = self.tableWidget_2.verticalHeaderItem(1)
+        item.setText(_translate("Dialog", "МНМ"))
+        item = self.tableWidget_2.verticalHeaderItem(2)
+        item.setText(_translate("Dialog", "МАО"))
+        item = self.tableWidget_2.verticalHeaderItem(3)
+        item.setText(_translate("Dialog", "МСО"))
+
+        item = self.tableWidget_3.verticalHeaderItem(0)
+        item.setText(_translate("Dialog", "МНК"))
+        item = self.tableWidget_3.verticalHeaderItem(1)
+        item.setText(_translate("Dialog", "МНМ"))
+        item = self.tableWidget_3.verticalHeaderItem(2)
+        item.setText(_translate("Dialog", "МАО"))
+        item = self.tableWidget_3.verticalHeaderItem(3)
+        item.setText(_translate("Dialog", "МСО"))
+
+        self.label.setText(_translate("Dialog", "Найденные значения параметра"))
+        self.label_2.setText(_translate("Dialog", "Ошибки аппроксимации"))
+        self.label_3.setText(_translate("Dialog", "Среднии относительные ошибки аппроксимации"))
+
+        self.run()
+
+    def viewResauls(self):
+
+        self.tableWidget.setColumnCount(len(self.resaults[0][0]))
+        self.tableWidget_2.setColumnCount(len(self.resaults[0][1]))
+        self.tableWidget_3.setColumnCount(1)
+
+        row = 0
+        for line in self.resaults:
+            col = 0
+            for items in line[0]:
+                for item in items:
+                    cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
+                    self.tableWidget.setItem(row, col, cellinfo)
+                    col += 1
+
+            col = 0
+            for items in line[1]:
+                for item in items:
+                    cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
+                    self.tableWidget_2.setItem(row, col, cellinfo)
+                    col += 1
+
+            cellinfo = QtWidgets.QTableWidgetItem('{:.2f}%'.format(float(line[2])))
+            self.tableWidget_3.setItem(row, 0, cellinfo)
+
+            row += 1
+
+
+
+    def run(self):
+        task = regr.Task(self.main.workMatrix_w, self.main.y)
+        task.run()
+        self.resaults = task.getResaults()
+        self.viewResauls()
+
+
+class Ui_Dialog_initTableH(QtWidgets.QDialog):
+
+    def __init__(self, parent=None):
+        super(Ui_Dialog_initTableH, self).__init__(parent)
 
         self.main = parent
         self.setObjectName("Dialog")
@@ -152,7 +293,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(10, 300, 261, 25))
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.openDialog)
+        self.pushButton_3.clicked.connect(self.openDialog_initTableH)
         self.pushButton_3.setDisabled(True)
 
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
@@ -191,6 +332,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_9.clicked.connect(self.showMatrixZavVar)
         self.pushButton_9.setDisabled(True)
 
+        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_10.setGeometry(QtCore.QRect(10, 340, 261, 25))
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.pushButton_10.clicked.connect(self.openDialog_answer)
+        self.pushButton_10.setDisabled(True)
+
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(670, 530, 118, 23))
         self.progressBar.setProperty("value", 24)
@@ -210,8 +357,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def openDialog(self):
-        dialog = Ui_Dialog(self)
+    def openDialog_initTableH(self):
+        dialog = Ui_Dialog_initTableH(self)
+        dialog.exec_()
+
+    def openDialog_answer(self):
+        dialog = Ui_Dialog_answer(self)
         dialog.exec_()
 
     def retranslateUi(self, MainWindow):
@@ -227,6 +378,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_7.setText(_translate("MainWindow", "Показать загруженную матрицу"))
         self.pushButton_8.setText(_translate("MainWindow", "Показать рабочую матрицу"))
         self.pushButton_9.setText(_translate("MainWindow", "Показать зависимую переменную"))
+        self.pushButton_10.setText(_translate("MainWindow", "Пуск"))
 
     def showMatrixH1(self):
         self._set_data_in_table(self.h1)
@@ -270,6 +422,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 self._initWorkMatrixWithoutY()
 
                 self.pushButton_9.setDisabled(False)
+                self.pushButton_10.setDisabled(False)
 
     def initZavVar(self):
         self.y = []
@@ -349,6 +502,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             self.h2.append(new_line)
 
         self.pushButton_6.setDisabled(False)
+        self.pushButton_10.setDisabled(False)
 
     def _set_data_in_table(self, data):
         self.tableWidget.clear()
