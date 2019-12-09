@@ -691,4 +691,4 @@ app = QtWidgets.QApplication([])
 application = mywindow()
 application.show()
 
-sys.exit(app.exec())
+#sys.exit(app.exec())

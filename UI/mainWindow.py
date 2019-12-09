@@ -11,6 +11,10 @@ class Ui_Dialog_answer(QtWidgets.QDialog):
         self.main = parent
         self.setObjectName("Dialog")
         self.resize(640, 603)
+
+        grid = QtWidgets.QGridLayout()
+        grid.setSpacing(10)
+
         self.buttonBox = QtWidgets.QDialogButtonBox(self)
         self.buttonBox.setGeometry(QtCore.QRect(10, 560, 621, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -78,6 +82,19 @@ class Ui_Dialog_answer(QtWidgets.QDialog):
         self.buttonBox.accepted.connect(self.accept)
         QtCore.QMetaObject.connectSlotsByName(self)
 
+        grid.addWidget(self.label, 1, 0)
+        grid.addWidget(self.tableWidget, 2, 0)
+
+        grid.addWidget(self.label_2, 3, 0)
+        grid.addWidget(self.tableWidget_2, 4, 0)
+
+        grid.addWidget(self.label_3, 5, 0)
+        grid.addWidget(self.tableWidget_3, 6, 0)
+
+        grid.addWidget(self.buttonBox, 7, 0)
+
+        self.setLayout(grid)
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Решение"))
@@ -124,18 +141,16 @@ class Ui_Dialog_answer(QtWidgets.QDialog):
         row = 0
         for line in self.resaults:
             col = 0
-            for items in line[0]:
-                for item in items:
-                    cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
-                    self.tableWidget.setItem(row, col, cellinfo)
-                    col += 1
+            for item in line[0]:
+                cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
+                self.tableWidget.setItem(row, col, cellinfo)
+                col += 1
 
             col = 0
-            for items in line[1]:
-                for item in items:
-                    cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
-                    self.tableWidget_2.setItem(row, col, cellinfo)
-                    col += 1
+            for item in line[1]:
+                cellinfo = QtWidgets.QTableWidgetItem('{:.3f}'.format(item))
+                self.tableWidget_2.setItem(row, col, cellinfo)
+                col += 1
 
             cellinfo = QtWidgets.QTableWidgetItem('{:.2f}%'.format(float(line[2])))
             self.tableWidget_3.setItem(row, 0, cellinfo)
@@ -145,7 +160,11 @@ class Ui_Dialog_answer(QtWidgets.QDialog):
 
 
     def run(self):
-        task = regr.Task(self.main.workMatrix_w, self.main.y)
+        task = regr.Task(
+            self.main.workMatrix_w,
+            self.main.y,
+            self.main.h1_index,
+            self.main.h2_index)
         task.run()
         self.resaults = task.getResaults()
         self.viewResauls()
@@ -159,6 +178,10 @@ class Ui_Dialog_initTableH(QtWidgets.QDialog):
         self.main = parent
         self.setObjectName("Dialog")
         self.resize(639, 344)
+
+        grid = QtWidgets.QGridLayout()
+        grid.setSpacing(10)
+
         self.buttonBox = QtWidgets.QDialogButtonBox(self)
         self.buttonBox.setGeometry(
             QtCore.QRect(280, 300, 341, 32))
@@ -197,11 +220,32 @@ class Ui_Dialog_initTableH(QtWidgets.QDialog):
             QtCore.QRect(370, 80, 256, 192))
         self.listWidget_2.setObjectName("listWidget_2")
 
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(20, 60, 20, 20))
+        self.label.setObjectName('label')
+
+        self.label1 = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(370, 60, 20, 20))
+        self.label1.setObjectName("label1")
+
+        grid.addWidget(self.pushButton, 1, 0)
+
+        grid.addWidget(self.label, 2, 0)
+        grid.addWidget(self.label1, 2, 3)
+
+        grid.addWidget(self.listWidget, 3, 0)
+        grid.addWidget(self.pushButton_2, 3, 2, 1, 1)
+        grid.addWidget(self.pushButton_3, 3, 2, 5, 1)
+        grid.addWidget(self.listWidget_2, 3, 3)
+
+        grid.addWidget(self.buttonBox, 4, 3)
+
+        self.setLayout(grid)
+
         self.retranslateUi(self)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         QtCore.QMetaObject.connectSlotsByName(self)
-
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -218,6 +262,9 @@ class Ui_Dialog_initTableH(QtWidgets.QDialog):
         self.listWidget_2.setSortingEnabled(False)
         self.listWidget_2.setSortingEnabled(__sortingEnabled)
 
+        self.label.setText(_translate("Dialog", "H1"))
+        self.label1.setText(_translate("Dialog", "H2"))
+
         self.init()
 
     def init(self):
@@ -225,7 +272,7 @@ class Ui_Dialog_initTableH(QtWidgets.QDialog):
         self.right = []
         self.left = []
 
-        for i in range(len(self.main.workMatrix[0])):
+        for i in range(len(self.main.workMatrix)):
             self.left.append(i)
 
             self.listWidget.addItem(str(i+1))
@@ -338,11 +385,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_10.clicked.connect(self.openDialog_answer)
         self.pushButton_10.setDisabled(True)
 
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(670, 530, 118, 23))
-        self.progressBar.setProperty("value", 24)
-        self.progressBar.setObjectName("progressBar")
-
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -359,6 +401,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def openDialog_initTableH(self):
         dialog = Ui_Dialog_initTableH(self)
+        self.pushButton_10.setDisabled(False)
         dialog.exec_()
 
     def openDialog_answer(self):
@@ -412,17 +455,18 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         number, ok = QtWidgets.QInputDialog.getInt(self,
                     'Диалог выбора зависимой переменной',
-                    'Введите номер столбца с зависимой переменной')
+                    'Введите номер столбца с зависимой переменной',
+                    min=1, max=len(self.workMatrix[0]))
 
         self.y = []
-        self.zav_var = number
+        self.zav_var = number - 1
         if ok:
-            if number >= 0 & number < len(self.data[0]):
+            if number >= 1:
                 self.initZavVar()
                 self._initWorkMatrixWithoutY()
 
                 self.pushButton_9.setDisabled(False)
-                self.pushButton_10.setDisabled(False)
+                self.pushButton_3.setDisabled(False)
 
     def initZavVar(self):
         self.y = []
@@ -468,7 +512,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self._set_data_in_table(self.data)
 
         self.pushButton_2.setDisabled(False)
-        self.pushButton_3.setDisabled(False)
         self.pushButton_4.setDisabled(False)
         self.pushButton_7.setDisabled(False)
         self.pushButton_8.setDisabled(False)
@@ -477,29 +520,22 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.h1_index = list_num
         self.h1 = []
 
+        index = 0
         for line in self.workMatrix:
-            new_line = []
-            index = 0
-            for item in line:
-                if index in list_num:
-                    new_line.append(item)
-                index += 1
-            self.h1.append(new_line)
-
+            if index in list_num:
+                self.h1.append(line)
+            index += 1
         self.pushButton_5.setDisabled(False)
 
     def initTableH2(self, list_num):
         self.h2_index = list_num
         self.h2 = []
 
+        index = 0
         for line in self.workMatrix:
-            new_line = []
-            index = 0
-            for item in line:
-                if index in list_num:
-                    new_line.append(item)
-                index += 1
-            self.h2.append(new_line)
+            if index in list_num:
+                self.h2.append(line)
+            index += 1
 
         self.pushButton_6.setDisabled(False)
         self.pushButton_10.setDisabled(False)
