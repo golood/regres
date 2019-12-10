@@ -1,3 +1,7 @@
 # regres
 
-Actual binary version 1.0 https://drive.google.com/open?id=1jrAioMqhup6hzXKTq6aqNJbtV58PxTeh
+Python 3.7.4
+
+pip install PyQt5 numpy pulp
+
+python main.py
