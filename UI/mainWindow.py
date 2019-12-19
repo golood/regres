@@ -318,18 +318,18 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(30, 10, 89, 25))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.loadFile)
+        self.loadFile_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.loadFile_btn.setGeometry(QtCore.QRect(30, 10, 89, 25))
+        self.loadFile_btn.setObjectName("loadFile_btn")
+        self.loadFile_btn.clicked.connect(self.loadFile)
 
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(10, 50, 771, 192))
         self.tableWidget.setObjectName("tableWidget")
 
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(140, 10, 400, 21))
-        self.label.setObjectName("label")
+        self.filename_label = QtWidgets.QLabel(self.centralwidget)
+        self.filename_label.setGeometry(QtCore.QRect(140, 10, 400, 21))
+        self.filename_label.setObjectName("filename_label")
 
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(10, 260, 261, 25))
@@ -337,41 +337,41 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.clicked.connect(self.showInputDialog)
         self.pushButton_2.setDisabled(True)
 
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(10, 300, 261, 25))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.clicked.connect(self.openDialog_initTableH)
-        self.pushButton_3.setDisabled(True)
+        self.divWorkMatrix_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.divWorkMatrix_btn.setGeometry(QtCore.QRect(10, 300, 261, 25))
+        self.divWorkMatrix_btn.setObjectName("divWorkMatrix_btn")
+        self.divWorkMatrix_btn.clicked.connect(self.openDialog_initTableH)
+        self.divWorkMatrix_btn.setDisabled(True)
 
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(280, 260, 261, 25))
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.clicked.connect(self.showInputDialog1)
-        self.pushButton_4.setDisabled(True)
+        self.setterWorkMatrix_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.setterWorkMatrix_btn.setGeometry(QtCore.QRect(280, 260, 261, 25))
+        self.setterWorkMatrix_btn.setObjectName("setterWorkMatrix_btn")
+        self.setterWorkMatrix_btn.clicked.connect(self.showInputDialog1)
+        self.setterWorkMatrix_btn.setDisabled(True)
 
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(280, 300, 261, 25))
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_5.clicked.connect(self.showMatrixH1)
-        self.pushButton_5.setDisabled(True)
+        self.selectH1_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.selectH1_btn.setGeometry(QtCore.QRect(280, 300, 261, 25))
+        self.selectH1_btn.setObjectName("selectH1_btn")
+        self.selectH1_btn.clicked.connect(self.showMatrixH1)
+        self.selectH1_btn.setDisabled(True)
 
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(280, 340, 261, 25))
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_6.clicked.connect(self.showMatrixH2)
-        self.pushButton_6.setDisabled(True)
+        self.selectH2_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.selectH2_btn.setGeometry(QtCore.QRect(280, 340, 261, 25))
+        self.selectH2_btn.setObjectName("selectH2_btn")
+        self.selectH2_btn.clicked.connect(self.showMatrixH2)
+        self.selectH2_btn.setDisabled(True)
 
-        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_7.setGeometry(QtCore.QRect(280, 380, 261, 25))
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_7.clicked.connect(self.showMatrixLoadMatrix)
-        self.pushButton_7.setDisabled(True)
+        self.selectLoadedMatrix_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.selectLoadedMatrix_btn.setGeometry(QtCore.QRect(280, 380, 261, 25))
+        self.selectLoadedMatrix_btn.setObjectName("selectLoadedMatrix_btn")
+        self.selectLoadedMatrix_btn.clicked.connect(self.showMatrixLoadMatrix)
+        self.selectLoadedMatrix_btn.setDisabled(True)
 
-        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_8.setGeometry(QtCore.QRect(280, 420, 261, 25))
-        self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_8.clicked.connect(self.showMatrixWorkMatrix)
-        self.pushButton_8.setDisabled(True)
+        self.selectWorkMatrix_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.selectWorkMatrix_btn.setGeometry(QtCore.QRect(280, 420, 261, 25))
+        self.selectWorkMatrix_btn.setObjectName("selectWorkMatrix_btn")
+        self.selectWorkMatrix_btn.clicked.connect(self.showMatrixWorkMatrix)
+        self.selectWorkMatrix_btn.setDisabled(True)
 
         self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_9.setGeometry(QtCore.QRect(280, 460, 261, 25))
@@ -379,11 +379,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_9.clicked.connect(self.showMatrixZavVar)
         self.pushButton_9.setDisabled(True)
 
-        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_10.setGeometry(QtCore.QRect(10, 340, 261, 25))
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.pushButton_10.clicked.connect(self.openDialog_answer)
-        self.pushButton_10.setDisabled(True)
+        self.start_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.start_btn.setGeometry(QtCore.QRect(10, 340, 261, 25))
+        self.start_btn.setObjectName("start_btn")
+        self.start_btn.clicked.connect(self.openDialog_answer)
+        self.start_btn.setDisabled(True)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -401,7 +401,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def openDialog_initTableH(self):
         dialog = Ui_Dialog_initTableH(self)
-        self.pushButton_10.setDisabled(False)
+        self.start_btn.setDisabled(False)
         dialog.exec_()
 
     def openDialog_answer(self):
@@ -411,17 +411,17 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "Загрузить"))
-        self.label.setText(_translate("MainWindow", "Loaded File..."))
+        self.loadFile_btn.setText(_translate("MainWindow", "Загрузить"))
+        self.filename_label.setText(_translate("MainWindow", "Loaded File..."))
         self.pushButton_2.setText(_translate("MainWindow", "Выбрать зависимую переменную"))
-        self.pushButton_3.setText(_translate("MainWindow", "Разделить матрицу"))
-        self.pushButton_4.setText(_translate("MainWindow", "Выбрать рабочую матрицу"))
-        self.pushButton_5.setText(_translate("MainWindow", "Показать H1"))
-        self.pushButton_6.setText(_translate("MainWindow", "Показать H2"))
-        self.pushButton_7.setText(_translate("MainWindow", "Показать загруженную матрицу"))
-        self.pushButton_8.setText(_translate("MainWindow", "Показать рабочую матрицу"))
+        self.divWorkMatrix_btn.setText(_translate("MainWindow", "Разделить матрицу"))
+        self.setterWorkMatrix_btn.setText(_translate("MainWindow", "Выбрать рабочую матрицу"))
+        self.selectH1_btn.setText(_translate("MainWindow", "Показать H1"))
+        self.selectH2_btn.setText(_translate("MainWindow", "Показать H2"))
+        self.selectLoadedMatrix_btn.setText(_translate("MainWindow", "Показать загруженную матрицу"))
+        self.selectWorkMatrix_btn.setText(_translate("MainWindow", "Показать рабочую матрицу"))
         self.pushButton_9.setText(_translate("MainWindow", "Показать зависимую переменную"))
-        self.pushButton_10.setText(_translate("MainWindow", "Пуск"))
+        self.start_btn.setText(_translate("MainWindow", "Пуск"))
 
     def showMatrixH1(self):
         self._set_data_in_table(self.h1)
@@ -466,7 +466,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 self._initWorkMatrixWithoutY()
 
                 self.pushButton_9.setDisabled(False)
-                self.pushButton_3.setDisabled(False)
+                self.divWorkMatrix_btn.setDisabled(False)
 
     def initZavVar(self):
         self.y = []
@@ -502,7 +502,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.data = []
         if fname[0] != '':
-            self.label.setText(fname[0])
+            self.filename_label.setText(fname[0])
             with open(fname[0], 'r', encoding='utf-8') as f:
                 for line in f:
                     self.data.append(list(map(float, line.split())))
@@ -512,9 +512,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self._set_data_in_table(self.data)
 
         self.pushButton_2.setDisabled(False)
-        self.pushButton_4.setDisabled(False)
-        self.pushButton_7.setDisabled(False)
-        self.pushButton_8.setDisabled(False)
+        self.setterWorkMatrix_btn.setDisabled(False)
+        self.selectLoadedMatrix_btn.setDisabled(False)
+        self.selectWorkMatrix_btn.setDisabled(False)
 
     def initTableH1(self, list_num):
         self.h1_index = list_num
@@ -525,7 +525,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             if index in list_num:
                 self.h1.append(line)
             index += 1
-        self.pushButton_5.setDisabled(False)
+        self.selectH1_btn.setDisabled(False)
 
     def initTableH2(self, list_num):
         self.h2_index = list_num
@@ -537,8 +537,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 self.h2.append(line)
             index += 1
 
-        self.pushButton_6.setDisabled(False)
-        self.pushButton_10.setDisabled(False)
+        self.selectH2_btn.setDisabled(False)
+        self.start_btn.setDisabled(False)
 
     def _set_data_in_table(self, data):
         self.tableWidget.clear()
