@@ -210,8 +210,9 @@ class LpSolve_MCO(LpSolve):
         super().run()
 
 
-
-
+# a01 = pulp.LpVariable('a01', lowBound=0)
+# a02 = pulp.LpVariable('a02', lowBound=0)
+#
 # a11 = pulp.LpVariable('a11', lowBound=0)
 # a12 = pulp.LpVariable('a12', lowBound=0)
 # a21 = pulp.LpVariable('a21', lowBound=0)
@@ -231,7 +232,7 @@ class LpSolve_MCO(LpSolve):
 # r = pulp.LpVariable('r', lowBound=0)
 #
 # problem = pulp.LpProblem('0', pulp.LpMinimize)
-
+#
 # problem += u1+v1+u2+v2+u3+v3+u4+v4+u5+v5+u6+v6, 'Функция цели'
 # problem += 2*a11-2*a12+5*a21-5*a22+u1-v1==7, '1'
 # problem += 9*a11-9*a12+4*a21-4*a22+u2-v2==9, '2'
@@ -239,6 +240,21 @@ class LpSolve_MCO(LpSolve):
 # problem += 8*a11-8*a12+3*a21-3*a22+u4-v4==6, '4'
 # problem += 1*a11-1*a12+7*a21-7*a22+u5-v5==4, '5'
 # problem += 5*a11-5*a12+8*a21-8*a22+u6-v6==5, '6'
+#
+# problem.solve()
+#
+# for variable in problem.variables():
+#     print (variable.name, "=", variable.varValue)
+#
+# problem = pulp.LpProblem('0', pulp.LpMinimize)
+#
+# problem += u1+v1+u2+v2+u3+v3+u4+v4+u5+v5+u6+v6, 'Функция цели'
+# problem += a01-a02+2*a11-2*a12+5*a21-5*a22+u1-v1==7, '1'
+# problem += a01-a02+9*a11-9*a12+4*a21-4*a22+u2-v2==9, '2'
+# problem += a01-a02+6*a11-6*a12+1*a21-1*a22+u3-v3==1, '3'
+# problem += a01-a02+8*a11-8*a12+3*a21-3*a22+u4-v4==6, '4'
+# problem += a01-a02+1*a11-1*a12+7*a21-7*a22+u5-v5==4, '5'
+# problem += a01-a02+5*a11-5*a12+8*a21-8*a22+u6-v6==5, '6'
 #
 # problem.solve()
 #

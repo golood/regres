@@ -385,6 +385,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.start_btn.clicked.connect(self.openDialog_answer)
         self.start_btn.setDisabled(True)
 
+        self.checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkbox.setGeometry(QtCore.QRect(280, 500, 261, 25))
+        self.checkbox.setObjectName("checkbox")
+        self.checkbox.clicked.connect(self._initWorkMatrixWithoutY)
+        self.checkbox.setDisabled(True)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -422,6 +428,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.selectWorkMatrix_btn.setText(_translate("MainWindow", "Показать рабочую матрицу"))
         self.pushButton_9.setText(_translate("MainWindow", "Показать зависимую переменную"))
         self.start_btn.setText(_translate("MainWindow", "Пуск"))
+        self.checkbox.setText(_translate("MainWindow", "Использовать свободный член"))
 
     def showMatrixH1(self):
         self._set_data_in_table(self.h1)
@@ -539,6 +546,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.selectH2_btn.setDisabled(False)
         self.start_btn.setDisabled(False)
+        self.checkbox.setDisabled(False)
 
     def _set_data_in_table(self, data):
         self.tableWidget.clear()
@@ -575,6 +583,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         for line in self.data:
             new_line = []
             index = 0
+            if self.checkbox.checkState():
+                new_line.append(1)
             for item in line:
                 if index in self.workMatrix_index and index != self.zav_var:
                     new_line.append(item)
